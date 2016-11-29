@@ -5,11 +5,11 @@ package com.chinaventure.base;
  * 标准返回
  */
 public class StandardResult {
-
     private int status;
+    
     private String message;
-    private Object result;
 
+    private Object result;
     /**
      * 发生错误的基础构建,返回值result默认为null
      *
