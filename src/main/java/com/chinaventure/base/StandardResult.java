@@ -6,7 +6,8 @@ package com.chinaventure.base;
  */
 public class StandardResult {
     private int status;
-    
+
+
     private String message;
 
     private Object result;
