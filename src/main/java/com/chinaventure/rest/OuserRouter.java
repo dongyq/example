@@ -121,7 +121,13 @@ public class OuserRouter {
     public StandardResult getMembers(@ModelAttribute Ouser user, int page, int size) {
         return new StandardResult(nativeQuery.userSearch(user, page, size));
     }
-
+    
+    /**
+     * 创建角色
+     * {“name”：value}即可
+     * @param role
+     * @return
+     */
     @RequestMapping(path = "/role", method = RequestMethod.POST)
     public StandardResult roles(@RequestBody ORole role){
         return new StandardResult(oroleService.saveRole(role));
