@@ -2,7 +2,9 @@ package com.chinaventure.rest;
 
 import com.chinaventure.base.StandardResult;
 import com.chinaventure.dao.OuserRepository;
+import com.chinaventure.entity.ORole;
 import com.chinaventure.entity.Ouser;
+import com.chinaventure.service.OroleService;
 import com.chinaventure.service.OuserService;
 import com.chinaventure.support.NativeQuery;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,11 +19,13 @@ public class OuserRouter {
     private final OuserRepository ouserRepo;
     private final OuserService ouserService;
     private final NativeQuery nativeQuery;
+    private final OroleService oroleService;
 
-    public OuserRouter(OuserRepository ouserRepo, OuserService ouserService, NativeQuery nativeQuery) {
+    public OuserRouter(OuserRepository ouserRepo, OuserService ouserService, NativeQuery nativeQuery, OroleService oroleService) {
         this.ouserRepo = ouserRepo;
         this.ouserService = ouserService;
         this.nativeQuery = nativeQuery;
+        this.oroleService = oroleService;
     }
 
     /**
@@ -116,5 +120,10 @@ public class OuserRouter {
     @RequestMapping(path = "/auth/ouser/search", method = RequestMethod.GET)
     public StandardResult getMembers(@ModelAttribute Ouser user, int page, int size) {
         return new StandardResult(nativeQuery.userSearch(user, page, size));
+    }
+
+    @RequestMapping(path = "/role", method = RequestMethod.POST)
+    public StandardResult roles(@RequestBody ORole role){
+        return new StandardResult(oroleService.saveRole(role));
     }
 }

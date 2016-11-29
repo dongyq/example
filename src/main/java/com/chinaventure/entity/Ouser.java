@@ -1,9 +1,7 @@
 package com.chinaventure.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by huaxiujun on 2016/11/24.
@@ -39,7 +37,39 @@ public class Ouser {
     @Column(columnDefinition = "TINYINT(1)")
     private Integer sex = 0;
 
+    @ManyToMany(cascade = CascadeType.PERSIST , fetch = FetchType.LAZY)
+    @JoinTable(name = "o_user_role" , joinColumns = {@JoinColumn(name = "uid")} , inverseJoinColumns = {@JoinColumn(name = "rid")})
+    private List<ORole> roles;
+
     //===========================
+
+
+    public Ouser(String picture, String email, String phone, String password, String name, Integer sex, List<ORole> roles) {
+        this.picture = picture;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.name = name;
+        this.sex = sex;
+        this.roles = roles;
+    }
+
+    public Ouser() {
+    }
+
+    @Override
+    public String toString() {
+        return "Ouser{" +
+                "id=" + id +
+                ", picture='" + picture + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", sex=" + sex +
+                ", roles=" + roles +
+                '}';
+    }
 
     public Integer getId() {
         return id;
@@ -47,14 +77,6 @@ public class Ouser {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getPicture() {
@@ -81,6 +103,14 @@ public class Ouser {
         this.phone = phone;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getName() {
         return name;
     }
@@ -95,5 +125,13 @@ public class Ouser {
 
     public void setSex(Integer sex) {
         this.sex = sex;
+    }
+
+    public List<ORole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<ORole> roles) {
+        this.roles = roles;
     }
 }
