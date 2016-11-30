@@ -2,13 +2,13 @@ package com.chinaventure.rest;
 
 import com.chinaventure.base.StandardResult;
 import com.chinaventure.dao.OuserRepository;
-import com.chinaventure.entity.ORole;
 import com.chinaventure.entity.Ouser;
-import com.chinaventure.service.OroleService;
 import com.chinaventure.service.OuserService;
 import com.chinaventure.support.NativeQuery;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by huaxiujun on 2016/11/24.
@@ -19,13 +19,11 @@ public class OuserRouter {
     private final OuserRepository ouserRepo;
     private final OuserService ouserService;
     private final NativeQuery nativeQuery;
-    private final OroleService oroleService;
 
-    public OuserRouter(OuserRepository ouserRepo, OuserService ouserService, NativeQuery nativeQuery, OroleService oroleService) {
+    public OuserRouter(OuserRepository ouserRepo, OuserService ouserService, NativeQuery nativeQuery) {
         this.ouserRepo = ouserRepo;
         this.ouserService = ouserService;
         this.nativeQuery = nativeQuery;
-        this.oroleService = oroleService;
     }
 
     /**
@@ -121,15 +119,12 @@ public class OuserRouter {
     public StandardResult getMembers(@ModelAttribute Ouser user, int page, int size) {
         return new StandardResult(nativeQuery.userSearch(user, page, size));
     }
-    
-    /**
-     * 创建角色
-     * {“name”：value}即可
-     * @param role
-     * @return
-     */
-    @RequestMapping(path = "/role", method = RequestMethod.POST)
-    public StandardResult roles(@RequestBody ORole role){
-        return new StandardResult(oroleService.saveRole(role));
+
+    //获取所用用户信息
+    @RequestMapping(path = "/auth/users",method = RequestMethod.GET)
+    public StandardResult getUsers(){
+        List<Ouser> all = ouserRepo.findAll();
+        return new StandardResult(all);
     }
+    
 }

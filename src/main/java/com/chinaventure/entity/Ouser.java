@@ -1,7 +1,6 @@
 package com.chinaventure.entity;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * Created by huaxiujun on 2016/11/24.
@@ -10,7 +9,7 @@ import java.util.List;
 @Entity
 public class Ouser {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO) //设置id为自增
     private Integer id;
 
     // 图片
@@ -37,24 +36,19 @@ public class Ouser {
     @Column(columnDefinition = "TINYINT(1)")
     private Integer sex = 0;
 
-    @ManyToMany(cascade = CascadeType.PERSIST , fetch = FetchType.LAZY)
-    @JoinTable(name = "o_user_role" , joinColumns = {@JoinColumn(name = "uid")} , inverseJoinColumns = {@JoinColumn(name = "rid")})
-    private List<ORole> roles;
-
     //===========================
 
 
-    public Ouser(String picture, String email, String phone, String password, String name, Integer sex, List<ORole> roles) {
+    public Ouser() {
+    }
+
+    public Ouser(String picture, String email, String phone, String password, String name, Integer sex) {
         this.picture = picture;
         this.email = email;
         this.phone = phone;
         this.password = password;
         this.name = name;
         this.sex = sex;
-        this.roles = roles;
-    }
-
-    public Ouser() {
     }
 
     @Override
@@ -67,7 +61,6 @@ public class Ouser {
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", sex=" + sex +
-                ", roles=" + roles +
                 '}';
     }
 
@@ -125,13 +118,5 @@ public class Ouser {
 
     public void setSex(Integer sex) {
         this.sex = sex;
-    }
-
-    public List<ORole> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<ORole> roles) {
-        this.roles = roles;
     }
 }
