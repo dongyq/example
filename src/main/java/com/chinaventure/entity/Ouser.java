@@ -1,9 +1,6 @@
 package com.chinaventure.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by huaxiujun on 2016/11/24.
@@ -12,7 +9,7 @@ import javax.persistence.Id;
 @Entity
 public class Ouser {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO) //设置id为自增
     private Integer id;
 
     // 图片
@@ -41,20 +38,38 @@ public class Ouser {
 
     //===========================
 
+
+    public Ouser() {
+    }
+
+    public Ouser(String picture, String email, String phone, String password, String name, Integer sex) {
+        this.picture = picture;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.name = name;
+        this.sex = sex;
+    }
+
+    @Override
+    public String toString() {
+        return "Ouser{" +
+                "id=" + id +
+                ", picture='" + picture + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", sex=" + sex +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getPicture() {
@@ -79,6 +94,14 @@ public class Ouser {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {

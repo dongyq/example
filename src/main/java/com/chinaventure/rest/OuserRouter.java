@@ -8,6 +8,8 @@ import com.chinaventure.support.NativeQuery;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created by huaxiujun on 2016/11/24.
  * 用户路由
@@ -117,4 +119,12 @@ public class OuserRouter {
     public StandardResult getMembers(@ModelAttribute Ouser user, int page, int size) {
         return new StandardResult(nativeQuery.userSearch(user, page, size));
     }
+
+    //获取所用用户信息
+    @RequestMapping(path = "/auth/users",method = RequestMethod.GET)
+    public StandardResult getUsers(){
+        List<Ouser> all = ouserRepo.findAll();
+        return new StandardResult(all);
+    }
+    
 }
