@@ -57,7 +57,7 @@ public class OuserRouter {
      * @return 标准返回值
      */
     @RequestMapping(path = "/auth/ouser", method = RequestMethod.PUT)
-    @PreAuthorize("hasRole('OUSER')")
+    @PreAuthorize("hasRole('OUSER') AND hasRole('ADMIN')")
     public StandardResult updateOuser(@RequestBody Ouser ouser) {
         Ouser old = ouserRepo.findOne(ouser.getId());
         ouser.setPassword(old.getPassword());
