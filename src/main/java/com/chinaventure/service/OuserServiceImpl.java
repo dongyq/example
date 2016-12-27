@@ -67,7 +67,7 @@ public class OuserServiceImpl implements OuserService {
                 JwtUser user = new JwtUser();
                 user.setId(ouser.getId().longValue());
                 user.setName(ouser.getName());
-                user.setRoles("ROLE_OUSER");
+                user.setRoles("ROLE_OUSER,ROLE_ADMIN");
                 // 过期时间1天
                 user.setExpiration(new Date(System.currentTimeMillis() + 24 * 3600 * 1000));
                 res = jwtTokenGenerator.generateToken(user);
