@@ -5,4 +5,5 @@ package com.chinaventure.entity;
  */
 public class ZjtjDev {
     //修改
+    //
 }
